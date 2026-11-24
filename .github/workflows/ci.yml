@@ -1,0 +1,10 @@
+name: ci
+on:
+  push:
+    branches: [main]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: fail on purpose to create an Actions check suite on the default branch
+        run: exit 1
