@@ -1,0 +1,20 @@
+name: monitor
+on:
+  check_suite:
+    types: [completed]
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: report check_suite context + canary availability
+        env:
+          CANARY: ${{ secrets.CANARY }}
+        run: |
+          echo "event_name=$GITHUB_EVENT_NAME"
+          echo "head_branch=${{ github.event.check_suite.head_branch }}"
+          echo "head_sha=${{ github.event.check_suite.head_sha }}"
+          echo "app_name=${{ github.event.check_suite.app.name }}"
+          echo "conclusion=${{ github.event.check_suite.conclusion }}"
+          echo "canary_len=${#CANARY}"
+          if [ -n "$CANARY" ]; then echo "canary_present=YES"; else echo "canary_present=NO"; fi

@@ -1,0 +1,13 @@
+name: pr-ci
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  core-python-sdk-pr-probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: fail on purpose (creates a failing check run named core-python-sdk-pr-probe)
+        run: |
+          echo "intentional failure to create a check run matching the core-python-sdk-pr- prefix"
+          exit 1
